@@ -2,11 +2,11 @@
 
 const scope = new URL(self.registration.scope);
 const cachePrefix = `vostok-shell:${scope.href}:`;
-const shellCache = `${cachePrefix}1`;
+const shellCache = `${cachePrefix}2`;
 const entry = new URL("index.html", scope).href;
 const shellFiles = [
   "index.html", "styles.css", "appearance.css", "appearance.js", "charts.js",
-  "app.js", "geocoding.js", "manifest.webmanifest", "assets/vostok-retro-display.ttf",
+  "app.js", "geocoding.js", "analytics.js", "manifest.webmanifest", "assets/vostok-retro-display.ttf",
   "assets/original-header.svg", "assets/retro-header.svg",
   "assets/original-horizon.svg", "assets/retro-horizon.svg",
   "assets/icons/apple-touch-icon.png", "assets/icons/vostok-192.png",

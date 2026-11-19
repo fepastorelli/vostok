@@ -13,6 +13,7 @@
   <script src="charts.js" defer></script>
   <script src="app.js" defer></script>
   <script src="geocoding.js" defer></script>
+  <script src="analytics.js" defer></script>
 </head>
 <body>
   <header class="masthead">
@@ -184,6 +185,13 @@
         <p id="data-status" role="status">Consultando a previsão…</p>
         <button id="refresh" class="period" type="button">Atualizar previsão</button>
       </div>
+      <details class="release-notes">
+        <summary>Privacidade da medição de uso</summary>
+        <p>O Google Analytics mede aberturas e instalações detectadas, com sua permissão. Você pode mudar a escolha aqui.</p>
+        <button id="analytics-accept" class="period" type="button">Permitir medição</button>
+        <button id="analytics-decline" class="period" type="button">Desativar medição</button>
+        <p id="analytics-status" class="data-note" role="status"></p>
+      </details>
     </footer>
   </main>
 </body>
