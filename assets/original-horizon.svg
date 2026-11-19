@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 166" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <linearGradient id="hill" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#62bb87"/><stop offset="1" stop-color="#16805e"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#hill)" d="M0 91q35-19 58-28t58 12l21 8q35-16 57-12t43 9q53-18 82-22 29-7 55 8l44 15q27-12 52-22t53 1l57 22v84H0z"/>
+  <path fill="#299369" d="M0 110q18-11 38-13t44-14q19-9 37-1l55 24q31-17 59-17l74 17q35-11 56-10l58 7 52-21q26-11 47-7l40 14v77H0z"/>
+  <path fill="#0a6a4e" d="M0 127q41-23 70-17t50 21q29-13 51-7l43 13q36-22 65-25t53 16q47-21 70-15l27 9q28-28 55-33t76 9v68H0z"/>
+  <path fill="#00412e" d="M0 143q49-23 83-14l53 19 60-6q40 8 56 8 42-13 77-20l79 14q47-21 75-22t77-18v62H0z"/>
+  <path fill="#03523a" d="M0 158l45-21 46 17 41 5 97-10 77-21 40-3-60 20-63 21H0zm300 8 64-18 42-3 70-29-32 29 54-7 62-26v54z"/>
+</svg>

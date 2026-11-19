@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 210" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <linearGradient id="red" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#540a07"/><stop offset=".52" stop-color="#8e1309"/><stop offset="1" stop-color="#c13417"/>
+    </linearGradient>
+    <linearGradient id="beam" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#ffd98e"/><stop offset="1" stop-color="#ef5121" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="globe" cx=".35" cy=".2" r=".88">
+      <stop stop-color="#ffe2a0"/><stop offset=".6" stop-color="#d5461d"/><stop offset="1" stop-color="#76170c"/>
+    </radialGradient>
+    <clipPath id="sphere"><circle cx="540" cy="217" r="85"/></clipPath>
+  </defs>
+  <path fill="url(#red)" d="M0 0h560v210H0z"/>
+  <path fill="url(#beam)" opacity=".72" d="M0 176l179-94 67-9L38 191l-38 5zm0 30 177-85 70-15L96 202l-44 8zm104 4 219-90 59-15-160 91-32 14zm149 0 181-107-84 96-27 11z"/>
+  <path fill="#572007" opacity=".32" d="M0 196l211-110L90 178 0 206zm200 14 142-82-44 68-30 14z"/>
+  <g stroke="#ffd894" fill="none" opacity=".83">
+    <circle cx="467" cy="104" r="8"/><circle cx="467" cy="104" r="15"/><circle cx="467" cy="104" r="23"/><circle cx="467" cy="104" r="31"/>
+    <path stroke-width="2" d="M434 210l33-106 29 106m-59-11h54m-49-15h45m-41-14h36m-31-15h25m-21-15h17m-33 59 40-15-34-14 25-15-16-15m8-36v-8"/>
+  </g>
+  <g clip-path="url(#sphere)">
+    <circle cx="540" cy="217" r="85" fill="url(#globe)"/>
+    <path fill="#8b1c0f" d="m474 159 16-11 18 4 7 11-11 11-14 1-2 13-12 8-9-12 5-11zm38 25 13-5 12 9 4 12-11 12-6 18-8-7 2-17-7-11zm25-40 14-9 28 4 24 21-7 11-15 2-9-7-21 4-16-18z"/>
+    <path d="M459 190q65-30 144 2m-114-62q55 14 64 93m15-95q-38 22-35 94m-72-52q54-28 117-16" stroke="#ffcf80" opacity=".72" fill="none"/>
+    <circle cx="540" cy="217" r="85" fill="none" stroke="#ffdf92" stroke-width="4"/>
+  </g>
+</svg>

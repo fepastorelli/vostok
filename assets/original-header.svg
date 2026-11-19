@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 210" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#022d23"/><stop offset=".56" stop-color="#034234"/><stop offset="1" stop-color="#086345"/>
+    </linearGradient>
+    <linearGradient id="cloud" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#a4deae"/><stop offset=".55" stop-color="#65b98c"/><stop offset="1" stop-color="#197650"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h560v210H0z"/>
+  <path fill="#0a644a" opacity=".42" d="M0 143l172-48 82-9L88 134l-88 34zm0 46 119-41 105-17-146 54L0 205z"/>
+  <path fill="#003d2c" opacity=".55" d="M0 163l130-37 119-14L98 155 0 184zm110 47 185-53 100-13-134 66z"/>
+  <g transform="translate(300 107)">
+    <path fill="url(#cloud)" d="M0 99q15-12 35-13 8-14 28-14 6-20 25-25 11-26 40-24 17-23 45-22 32 0 40 32 24-8 43 10 13 11 17 32v24z"/>
+    <path fill="#b2e6b3" opacity=".69" d="M111 35q27-12 42-7 10-13 24-16 19-4 33 10-10-18-35-19-36-2-61 22zM61 74q15-10 26-8 5-12 20-15-19-4-32 6z"/>
+    <path fill="#42a477" d="M13 97q19-14 39-15 20-8 32-6 16-20 40-12 13-25 45-24 24-12 43 8 24-6 42 8l19 43z"/>
+    <path fill="#147451" d="M52 103q26-16 48-13 16-13 39-11 24-21 47-12 21-15 43-7 30-15 44 5v38z"/>
+    <path fill="#064733" d="M5 103l97-9 26-7 41-2 30-7 44 3 30-8v30z"/>
+  </g>
+  <path fill="#03392b" d="M0 210l112-7 87 2 102-9 74 4 185-15v25z"/>
+</svg>

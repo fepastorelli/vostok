@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#112827">
+  <title>Vostok 2.8 — Painel meteorológico</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="appearance.css">
+  <script src="appearance.js" defer></script>
+  <script src="charts.js" defer></script>
+  <script src="app.js" defer></script>
+  <script src="geocoding.js" defer></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="wrap brand">
+      <button id="theme-toggle" class="header-icon theme-toggle" type="button" aria-label="Tema Retrô" aria-pressed="false" title="Ativar tema Retrô">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18h1.1a1.8 1.8 0 0 0 1.4-2.9c-.8-1 .1-2.4 1.4-2.4h1.8a3.3 3.3 0 0 0 3.3-3.3C21 7.2 17 3 12 3Z"/><circle cx="7" cy="12" r=".8"/><circle cx="9" cy="7.8" r=".8"/><circle cx="14" cy="7" r=".8"/><circle cx="17" cy="10.5" r=".8"/></svg>
+      </button>
+      <div class="brand-title">
+        <h1>Vostok</h1>
+        <span class="brand-tagline">Tempo &amp; Clima</span>
+      </div>
+      <button id="location-toggle" class="header-icon" type="button" aria-label="Selecionar cidade: São Paulo, SP" aria-expanded="false" aria-controls="place-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <span id="header-city">São Paulo, SP</span>
+        <svg class="location-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+    </div>
+    <div id="place-search" class="wrap place-search" hidden>
+      <div class="place-controls">
+        <form id="place-form" role="search">
+          <label class="sr-only" for="place-query">Rua, endereço, CEP, bairro, cidade, estado ou país</label>
+          <input id="place-query" type="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="place-results" autocomplete="off" placeholder="Cidade, bairro, CEP ou endereço" maxlength="240" required>
+          <button class="period search-submit" type="submit" aria-label="Buscar">
+            <span>Buscar</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg>
+          </button>
+          <button id="use-position" class="period" type="button" aria-label="Usar minha localização">
+            <span>Usar minha localização</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4M1 12h4m14 0h4"/></svg>
+          </button>
+        </form>
+        <p id="place-status" role="status"></p>
+        <ul id="place-results" role="listbox" aria-label="Sugestões de locais" hidden></ul>
+        <section id="city-picker" class="city-picker" aria-labelledby="city-picker-title" hidden>
+          <h2 id="city-picker-title">Outras cidades</h2>
+          <ul id="city-options"></ul>
+        </section>
+      </div>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="current-conditions" aria-labelledby="current-title">
+      <h2 id="current-title" class="panel-heading">
+        <button id="current-view" type="button" aria-expanded="true" aria-controls="current-content">Condições atuais</button>
+      </h2>
+      <div id="current-content">
+        <div id="current-compact" class="current-compact">
+          <span id="compact-date"></span>
+          <span id="compact-sky" role="img" aria-label="Céu indisponível"></span>
+          <strong id="compact-temperature"></strong>
+          <span id="compact-reference" class="data-note"></span>
+        </div>
+        <p id="current-status" class="panel-meta" role="status">Carregando condições atuais…</p>
+        <div id="current-metrics" class="current-metrics" hidden>
+          <p id="current-reference" class="data-note"></p>
+          <div class="current-main">
+            <dl class="current-card current-primary">
+              <div><dt id="current-temperature-label">Temperatura atual</dt><dd id="current-temperature"></dd></div>
+              <div class="current-sky"><dt class="sr-only">Céu</dt><dd id="current-sky"></dd></div>
+              <div class="current-feels"><dt><span class="desktop-only">Sensação térmica</span><span class="mobile-metric-label">Sensação</span></dt><dd id="current-apparent"></dd></div>
+            </dl>
+            <div class="current-card current-rain-card">
+              <dl>
+                <dt id="current-rain-label">Probabilidade de chuva</dt>
+                <dd id="current-rain"></dd>
+              </dl>
+              <div id="current-rain-bar" class="current-rain-bar" role="meter" aria-labelledby="current-rain-label" aria-valuemin="0" aria-valuemax="100" hidden>
+                <span id="current-rain-fill" aria-hidden="true"></span>
+              </div>
+              <p id="current-rain-period" class="data-note"></p>
+            </div>
+          </div>
+          <dl class="current-secondary">
+            <div class="current-card"><dt><span class="desktop-only">Umidade relativa</span><span class="mobile-metric-label">Umidade</span></dt><dd id="current-humidity"></dd></div>
+            <div class="current-card"><dt><span class="desktop-only">Velocidade do vento</span><span class="mobile-metric-label">Vento</span></dt><dd id="current-wind"></dd></div>
+            <div class="current-card current-local"><dt>Horário local</dt><dd id="current-clock"></dd></div>
+          </dl>
+        </div>
+      </div>
+      <div id="current-summary" class="section-summary">Carregando condições atuais…</div>
+    </section>
+    <section class="forecast hourly-forecast" aria-labelledby="forecast-title">
+      <div class="forecast-head">
+        <h2 id="forecast-title" class="panel-heading">
+          <button id="forecast-view" type="button" aria-expanded="true" aria-controls="forecast-content">Previsão hora a hora</button>
+        </h2>
+      </div>
+      <div id="forecast-content">
+        <div class="forecast-filters">
+          <div id="periods" class="periods" role="group" aria-label="Seleção de período"></div>
+          <p id="hour-selection-status" class="data-note" role="status"></p>
+        </div>
+        <div id="hourly-preview" aria-label="Resumo horário em cartões"></div>
+        <table>
+          <caption class="sr-only">Chuva indica a probabilidade de precipitação para a hora que começa no horário local indicado na linha.</caption>
+          <thead><tr><th scope="col">Hora</th><th scope="col">Céu</th><th scope="col">Temperatura</th><th scope="col" title="Probabilidade de precipitação na hora que começa no horário indicado">Chuva <span>(%)</span></th></tr></thead>
+          <tbody id="weather" aria-busy="true"></tbody>
+        </table>
+        <details>
+          <summary>Legenda do céu</summary>
+          <ul id="sky-legend"></ul>
+        </details>
+      </div>
+      <div id="hourly-summary" class="section-summary">Carregando previsão…</div>
+    </section>
+    <section class="calendar" aria-labelledby="calendar-title">
+      <h2 id="calendar-title" class="panel-heading">
+        <button id="calendar-view" type="button" aria-expanded="true" aria-controls="calendar-content">Previsão de 5 dias</button>
+      </h2>
+      <div id="calendar-content">
+        <p id="date-range" class="panel-meta"></p>
+        <div id="calendar-nav" class="calendar-nav">
+          <button id="previous" class="arrow" type="button" aria-label="Dia anterior">‹</button>
+          <div id="days" class="days" role="group" aria-label="Seleção de dia"></div>
+          <button id="next" class="arrow" type="button" aria-label="Próximo dia">›</button>
+        </div>
+        <p id="daily-rain-note" class="data-note">Temperaturas em °C. A porcentagem é a maior probabilidade horária de chuva prevista no dia.</p>
+        <section class="day-details" aria-labelledby="day-details-title">
+          <div class="day-detail-nav">
+            <div id="day-previous-slot" class="day-detail-arrow"></div>
+            <div class="day-overview">
+              <h3 id="day-details-title" aria-live="polite">Detalhes do dia</h3>
+              <div id="day-summary"></div>
+            </div>
+            <div id="day-next-slot" class="day-detail-arrow"></div>
+          </div>
+          <div id="calendar-day-details"></div>
+        </section>
+      </div>
+      <div id="calendar-summary" class="section-summary">Carregando previsão…</div>
+    </section>
+    <section class="forecast hourly-graphs" aria-labelledby="charts-title">
+      <div class="forecast-head">
+        <h2 id="charts-title" class="panel-heading">
+          <button id="charts-view" type="button" aria-expanded="true" aria-controls="charts-content">Gráficos</button>
+        </h2>
+        <div id="charts-content">
+          <p id="selected-date" class="panel-meta" aria-live="polite"></p>
+          <div id="hourly-charts">
+            <p id="chart-values" role="status"></p>
+            <h3>Temperatura (°C)</h3>
+            <svg id="temperature-chart" class="hour-chart" tabindex="0" role="group" aria-label="Temperatura por hora" aria-describedby="chart-instructions"></svg>
+            <h3>Probabilidade horária de chuva (%)</h3>
+            <svg id="rain-chart" class="hour-chart" tabindex="0" role="group" aria-label="Probabilidade de chuva por hora" aria-describedby="chart-instructions"></svg>
+            <p id="chart-instructions" class="data-note">Passe o cursor para consultar uma hora. Clique, toque ou use as setas para selecioná-la. A chuva se refere à hora que começa no horário indicado.</p>
+          </div>
+          <p id="chart-status" role="status" hidden></p>
+        </div>
+        <p class="section-summary">Temperatura e chuva nas próximas horas</p>
+      </div>
+    </section>
+    <div class="mobile-horizon" aria-hidden="true"></div>
+    <footer id="app-footer" class="app-footer" aria-label="Informações do aplicativo e fontes" tabindex="-1">
+      <p class="footer-version">Vostok 2.8 Beta</p>
+      <details id="app-info" class="release-notes">
+        <summary>Sobre o Vostok</summary>
+        <p>Painel de tempo e clima desenvolvido por Fernando Pastorelli, com dados da Open-Meteo.</p>
+      </details>
+      <details id="release-notes" class="release-notes">
+        <summary>Novidades e atualizações</summary>
+        <ul>
+          <li>Alterne entre Original e Retrô pelo botão no cabeçalho.</li>
+          <li>Painel adaptado para celular, com seções que podem ser recolhidas.</li>
+        </ul>
+      </details>
+      <div class="forecast-meta">
+        <p id="source-line">Previsão: <a href="https://open-meteo.com/en/docs">Open-Meteo</a></p>
+        <p>Busca: <a href="https://github.com/komoot/photon">Photon</a> · Dados © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a></p>
+        <p id="forecast-zone"></p>
+        <p id="data-status" role="status">Consultando a previsão…</p>
+        <button id="refresh" class="period" type="button">Atualizar previsão</button>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
